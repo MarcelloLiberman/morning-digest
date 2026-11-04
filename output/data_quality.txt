@@ -1,0 +1,18 @@
+DATA QUALITY REPORT
+Rows read: 600   Shops: 20   Dates: 15 Sep 2026 to 14 Oct 2026   Report day: 14 Oct 2026
+
+[OK] Unreadable dates or missing shop name (rows dropped): none
+[OK] Exact duplicate rows (extra copies dropped): none
+[OK] Same shop and day with different numbers (not used): none
+[OK] Empty values (not used): none
+[OK] Values that are not numbers (not used): none
+[OK] Negative values (not used): none
+[OK] More orders than visits (not used): none
+[OK] Orders without revenue, or revenue without orders (not used): none
+[FOUND 2] Days where every number is zero (likely a missing day; not used for 'normal')
+    - Shop 04 on 02 Oct: visits, orders and revenue are all zero
+    - Shop 18 on 14 Oct: visits, orders and revenue are all zero
+[OK] Missing days (no row at all): none
+
+Rows marked 'not used' are left out when working out each shop's normal level,
+so a bad day doesn't make an ordinary day look unusual.
