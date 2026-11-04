@@ -23,7 +23,8 @@ It prints the summary and writes three files into `output/`:
 | `flags.csv` | Every flagged number: normal level, actual value, % change, how unusual it is |
 | `data_quality.txt` | Every data check, and what it found |
 
-The **report day** is the last date in the file (14 Oct 2026 here).
+The **report day** ("yesterday") is always the last date in the file, so the tool works on any
+day's export with no changes. For `daily_metrics.csv` that is 14 Oct 2026.
 The results from `daily_metrics.csv` are committed in `output/` so you can read them without running anything.
 
 ## How it works
@@ -66,7 +67,7 @@ rest of the shops. All the settings are at the top of `digest.py`.
 python3 -m unittest -v test_digest.py
 ```
 
-There are 18 tests. Most build a small fake data file with **one known problem** planted in it,
+There are 19 tests. Most build a small fake data file with **one known problem** planted in it,
 then check the tool reacts correctly:
 
 - **Data checks:** a clean file reports nothing; a duplicate row, a clash, a missing day, an empty
@@ -77,6 +78,12 @@ then check the tool reacts correctly:
   report-day row is flagged; the summary is always exactly 5 lines (quiet day and 8-shops-broken day).
 - **Real file:** Shops 18, 07 and 13 are flagged in that order, nothing else is flagged, and Shop 04's
   zero day is reported.
+- **Planted problem in the real file:** a copy of `daily_metrics.csv` with Shop 05's orders and
+  revenue on 14 Oct cut in half. Shop 05 then appears on line 2 of the summary (orders −41%,
+  revenue −46%, about $1,590 below a normal day), right after Shop 18's outage. It shows −41%
+  rather than −50% because Shop 05 was having a good day before the cut. I first ran this by hand on
+  a copy kept outside the repository, then added it as an automated test that makes the copy in
+  memory, so no doctored file is saved.
 
 I also explored the real data by hand first (row counts, duplicates, zeros, weekday patterns,
 each shop's change) to check the tool's results matched what a person would conclude.
@@ -104,3 +111,12 @@ each shop's change) to check the tool's results matched what a person would conc
 - **Report day = last date in the file.** If the export includes a partial day for today, that partial
   day becomes the report day and will look like a crash.
 - **Totals in the summary** use the 7-day average as "normal", so they carry the same weekday effect.
+
+## Next steps
+
+Today the tool produces the summary when someone runs it by hand. The next steps would be:
+
+1. **Run it automatically every morning**, e.g. a scheduled job that runs shortly after the
+   overnight export lands, so nobody has to remember to run it.
+2. **Post the 5-line summary to Slack**, e.g. to a team channel, so everyone sees what needs action
+   at the start of the day, with a link to `flags.csv` and `data_quality.txt` for detail.
