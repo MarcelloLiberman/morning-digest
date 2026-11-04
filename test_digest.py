@@ -188,6 +188,19 @@ class RealFile(unittest.TestCase):
                 report = f.read()
             self.assertIn("Shop 04 on 02 Oct", report)
 
+    def test_real_file_with_shop_05_halved(self):
+        # Copy the real data in memory (no file is saved), halve Shop 05's last day,
+        # and check the tool now reports Shop 05 as losing money.
+        df = pd.read_csv("daily_metrics.csv", dtype=str, keep_default_na=False)
+        last_day = df["date"].max()
+        row = (df["item"] == "Shop 05") & (df["date"] == last_day)
+        df.loc[row, "orders"] = str(round(int(df.loc[row, "orders"].iloc[0]) / 2))
+        df.loc[row, "revenue_usd"] = str(float(df.loc[row, "revenue_usd"].iloc[0]) / 2)
+        _, _, flags, lines = analyse(df)
+        self.assertIn("Shop 05", set(flags["shop"]))
+        self.assertTrue(lines[1].startswith("Shop 05"))   # biggest money loss after Shop 18
+        self.assertIn("below a normal day", lines[1])
+
 
 if __name__ == "__main__":
     unittest.main()
