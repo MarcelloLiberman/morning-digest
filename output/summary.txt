@@ -1,0 +1,5 @@
+Shop 18 reported zero visits, orders and revenue on 14 Oct (normally ~5,389 visits and ~$6,664 a day) - check whether the shop or its data feed is down.
+Shop 07: orders -57% (14 vs ~33 normal), revenue -57% ($488 vs ~$1,131 normal), conversion -57% (0.9% vs ~2.1% normal) - visits were normal, so this looks like a checkout or payment problem; about $643 below a normal day.
+Shop 13: visits +254% (3,378 vs ~954 normal), conversion -64% (1.1% vs ~3.0% normal) - lots of extra visitors who didn't buy - check for bot traffic or a campaign sending the wrong people.
+Data checks: 2 problem(s) found (Shop 04 on 02 Oct: visits, orders and revenue are all zero; Shop 18 on 14 Oct: visits, orders and revenue are all zero) - bad rows were left out of 'normal'; see data_quality.txt.
+The other 17 shops were within their normal range (Shop 11 too small to judge orders/revenue). Total revenue 14 Oct: $53,979 vs ~$55,530 on a normal day (-3%).

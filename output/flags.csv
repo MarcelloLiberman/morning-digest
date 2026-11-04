@@ -1,0 +1,9 @@
+shop,metric,kind,normal_7day_avg,actual,change_pct,usual_wobble,wobbles_away,note
+Shop 07,orders,unusual,32.7143,14.0,-57.2,4.837,3.9,
+Shop 07,revenue,unusual,1131.2157,487.86,-56.9,178.6707,3.6,
+Shop 07,conversion,unusual,0.0209,0.0089,-57.3,0.0017,6.9,
+Shop 13,visits,unusual,954.4286,3378.0,253.9,115.3126,21.0,
+Shop 13,conversion,unusual,0.0301,0.011,-63.6,0.0024,7.9,
+Shop 18,visits,all zero,5388.7143,0.0,-100.0,561.575,9.6,every number is zero on the report day
+Shop 18,orders,all zero,234.4286,0.0,-100.0,26.0399,9.0,every number is zero on the report day
+Shop 18,revenue,all zero,6664.4914,0.0,-100.0,708.1343,9.4,every number is zero on the report day
